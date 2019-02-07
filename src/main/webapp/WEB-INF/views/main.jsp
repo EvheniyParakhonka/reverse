@@ -51,9 +51,14 @@
     </div>
 </div>
 
-<textarea v-model="story" readonly="readonly" style="width: 90%; position: absolute;
-bottom: 20px; left: 25px; height: 90px" placeholder="ваша история пуста"></textarea>
 
+<div id="v-for-object" class="editable list-group-item"  style="width: 90%; position: absolute;
+bottom: 20px; left: 25px; height: 90px; overflow: auto;border:1px solid black;" >
+    <%--<li v-for="(id, userName) in items" @click="getHistory(id)">--%>
+        <a href="#" @click="getHistory(item.id)" :key="item.id"
+           v-for="item in items" class="list-group-item list-group-item-action">id: {{ item.id }}, time: {{item.dateTime}}<br> </a>
+    <%--</li>--%>
+</div>
 <script src="<c:url value="/static/js/main.js"/>">
 </script>
 </body>

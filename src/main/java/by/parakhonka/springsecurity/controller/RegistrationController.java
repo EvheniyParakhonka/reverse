@@ -1,7 +1,7 @@
 package by.parakhonka.springsecurity.controller;
 
 
-import by.parakhonka.springsecurity.dao.UserDao;
+import by.parakhonka.springsecurity.dao.IUserDao;
 import by.parakhonka.springsecurity.model.Role;
 import by.parakhonka.springsecurity.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ import java.util.Map;
 @Controller
 public class RegistrationController {
     @Autowired
-    private UserDao mUserRepo;
+    private IUserDao mUserRepo;
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registration() {

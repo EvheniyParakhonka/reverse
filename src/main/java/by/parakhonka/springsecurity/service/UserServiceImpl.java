@@ -5,15 +5,15 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import by.parakhonka.springsecurity.dao.UserDao;
+import by.parakhonka.springsecurity.dao.IUserDao;
 import by.parakhonka.springsecurity.model.User;
 
 @Service("userService")
 @Transactional
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements IUserService {
 
 	@Autowired
-	private UserDao dao;
+	private IUserDao dao;
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;

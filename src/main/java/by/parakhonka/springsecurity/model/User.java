@@ -8,7 +8,7 @@ import java.util.Set;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
     private String username;
     private String password;
     private boolean active;
@@ -18,11 +18,22 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
 
-    public Long getId() {
+//    @OneToMany(mappedBy = "mUser",fetch = FetchType.LAZY)
+//    private Set<History> history;
+//
+//    public Set<History> getHistory() {
+//        return history;
+//    }
+//
+//    public void setHistory(Set<History> pHistory) {
+//        history = pHistory;
+//    }
+
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

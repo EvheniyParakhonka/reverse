@@ -2,7 +2,7 @@ package by.parakhonka.springsecurity.dao;
 
 import by.parakhonka.springsecurity.model.User;
 
-public interface UserDao {
+public interface IUserDao {
 
 	void save(User user);
 	

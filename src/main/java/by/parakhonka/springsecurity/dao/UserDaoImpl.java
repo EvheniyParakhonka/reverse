@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Repository("userDao")
 @Transactional
-public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
+public class UserDaoImpl extends AbstractDao<Integer, User> implements IUserDao {
 
 	public void save(User user) {
 		persist(user);

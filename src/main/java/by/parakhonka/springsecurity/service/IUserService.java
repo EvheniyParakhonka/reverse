@@ -2,7 +2,7 @@ package by.parakhonka.springsecurity.service;
 
 import by.parakhonka.springsecurity.model.User;
 
-public interface UserService {
+public interface IUserService {
 
 	void save(User user);
 	

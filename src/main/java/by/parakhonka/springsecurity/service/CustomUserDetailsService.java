@@ -16,11 +16,11 @@ import java.util.Set;
 @Service("customUserDetailsService")
 public class CustomUserDetailsService implements UserDetailsService {
     @Autowired
-    private UserService userService;
+    private IUserService userService;
 
     public UserDetails loadUserByUsername(String pS) throws UsernameNotFoundException {
         System.out.println("loadByusername");
-        // с помощью нашего сервиса UserService получаем User
+        // с помощью нашего сервиса IUserService получаем User
         User user = userService.findBySso(pS);
 
         System.out.println(user.getUsername());
