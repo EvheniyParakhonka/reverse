@@ -16,25 +16,23 @@ import java.util.Set;
 @Service("customUserDetailsService")
 public class CustomUserDetailsService implements UserDetailsService {
     @Autowired
-    private IUserService userService;
+    private IUserService mIUserService;
 
     public UserDetails loadUserByUsername(String pS) throws UsernameNotFoundException {
-        System.out.println("loadByusername");
+        System.out.println("load By user name");
         // с помощью нашего сервиса IUserService получаем User
-        User user = userService.findBySso(pS);
+        User user = mIUserService.findBySso(pS);
 
         System.out.println(user.getUsername());
         if (user == null) {
             System.out.println("User not found");
             throw new UsernameNotFoundException("Username not found");
         }
-        // указываем роли для этого пользователя
+
         Set<GrantedAuthority> roles = new HashSet();
         roles.add(new SimpleGrantedAuthority(Role.USER.name()));
 
-        // на основании полученных данных формируем объект UserDetails
-        // который позволит проверить введенный пользователем логин и пароль
-        // и уже потом аутентифицировать пользователя
+
         UserDetails userDetails =
                 new org.springframework.security.core.userdetails.User(user.getUsername(),
                         user.getPassword(),
@@ -42,13 +40,13 @@ public class CustomUserDetailsService implements UserDetailsService {
 
         return userDetails;
     }
-    }
+}
 
 //    @Transactional(readOnly = true)
 //
 //    public UserDetails loadUserByUsername(String ssoId)
 //            throws UsernameNotFoundException {
-//        User user = userService.findBySso(ssoId);
+//        User user = mIUserService.findBySso(ssoId);
 //        System.out.println("User : " + user);
 //        if (user == null) {
 //            System.out.println("User not found");
