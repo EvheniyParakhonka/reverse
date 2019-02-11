@@ -13,7 +13,7 @@
         }
 
         .center {
-            border: 2px solid whitesmoke;
+            border: 2px solid black;
             margin: auto;
             position: relative;
             text-align: center;
@@ -24,15 +24,15 @@
 </head>
 
 <body>
-<div class="center">
-    <p style="color: snow">Login page</p>
+<div class="center rounded">
+    <p3 style="color: black" >Login page</p3>
     <form action="./j_spring_security_check" method="post">
-        <div style="color: whitesmoke"><label> User Name : <input style="color: black" type="text" name="j_username"/> </label></div>
-        <div style="color: whitesmoke"><label> Password: <input style="color: black" type="password" name="j_password"/> </label></div>
+        <div style="color: black" ><label> User Name : <input style="color: black" type="text" name="j_username"/> </label></div>
+        <div style="color: black" ><label> Password: <input style="color: black" type="password" name="j_password"/> </label></div>
         <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
         <div><input class="btn " type="submit" value="Sign In"/></div>
     </form>
-    <a href="./registration" style="color: whitesmoke">Add new user</a>
+    <a href="./registration" style="color: black">Add new user</a>
 </div>
 </body>
 </html>

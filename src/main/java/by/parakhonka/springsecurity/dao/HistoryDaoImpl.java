@@ -2,12 +2,14 @@ package by.parakhonka.springsecurity.dao;
 
 import by.parakhonka.springsecurity.model.History;
 import org.hibernate.Criteria;
+import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+
 @Repository("historyDao")
 @Transactional
 public class HistoryDaoImpl extends AbstractDao<Integer, History> implements IHistoryDao {
@@ -29,6 +31,19 @@ public class HistoryDaoImpl extends AbstractDao<Integer, History> implements IHi
 
         History history = (History) crit.add(Restrictions.eq("id", id)).uniqueResult();
         return history;
+    }
+
+    public List<History> getTenHistory(int pPage, String pUserName) {
+        Criteria crit = createEntityCriteria();
+        crit.addOrder(Order.desc("date"));
+
+        if (pPage == 1) {
+            return    crit.setFirstResult(0).setMaxResults(10).list();
+        } else {
+//           return crit.add(Restrictions.between("date", pPage * 10, pPage * 10 + 9)).list();
+            return    crit.setFirstResult(pPage*10).setMaxResults(10).list();
+        }
+
     }
 
     public History getLastHistory(String userName) {

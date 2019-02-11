@@ -29,18 +29,19 @@ public class ReformatController {
     public String jsonToXml(@RequestBody String json) {
         JSONObject jsonO = new JSONObject(json);
         String xml = XML.toString(jsonO);
-        saveHistory(xml, json);
+        mIHistoryService.saveHistory(xml, json);
         System.out.println(xml);
         System.out.println(json);
 
         return xml;
     }
+
     @RequestMapping(value = "/xml", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
     @ResponseBody
     public String xmlToJson(@RequestBody String xmlString) {
         JSONObject xmlJSONObj = XML.toJSONObject(xmlString);
         String jsonPrettyPrintString = xmlJSONObj.toString(4);
-        saveHistory(xmlString, jsonPrettyPrintString);
+        mIHistoryService.saveHistory(xmlString, jsonPrettyPrintString);
         System.out.println(xmlString);
         System.out.println(jsonPrettyPrintString);
 
@@ -55,34 +56,30 @@ public class ReformatController {
         return history;
     }
 
-    @RequestMapping(value = "history/all")
+    @RequestMapping(value = "history/ten", method = RequestMethod.GET)
     @ResponseBody
-    public List<History> getAllHistory() {
-        List<History> list = mIHistoryService.getAllHistoriUser(getUserName());
+    public List<History> getTenHistory(@RequestParam(value = "page") int pPage) {
+        List<History> list = mIHistoryService.getTenHistoryByPage(pPage);
         return list;
+    }
+
+
+    @RequestMapping(value = "/history/pages", method = RequestMethod.GET)
+    @ResponseBody
+    public int getPages() {
+        int page = mIHistoryService.getAllHistoriUser().size() / 10;
+        if (page < 1) {
+            page = 1;
+        }
+        return page;
     }
 
     @RequestMapping(value = "/history", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<History> history() {
-        History history = mIHistoryService.getLastHistory(getUserName());
+        History history = mIHistoryService.getLastHistory();
         return new ResponseEntity<History>(history, HttpStatus.OK);
     }
 
 
-    private String getUserName() {
-        SecurityContext context = SecurityContextHolder.getContext();
-        Authentication auth = context.getAuthentication();
-        UserDetails user = (UserDetails) auth.getPrincipal();
-        return user.getUsername();
-    }
-
-    private void saveHistory(String pXml, String pJson) {
-        History history = new History();
-        history.setJson(pJson);
-        history.setXml(pXml);
-        history.setDate(Calendar.getInstance(TimeZone.getTimeZone("GMT+3")).getTimeInMillis());
-        history.setName(getUserName());
-        mIHistoryService.save(history);
-    }
 }

@@ -12,4 +12,6 @@ public interface IHistoryDao {
     History getByidHistory(int id);
 
     History getLastHistory(String userName);
+
+    List getTenHistory(int pPage, String pUserName);
 }

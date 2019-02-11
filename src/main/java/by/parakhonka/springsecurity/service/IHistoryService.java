@@ -6,8 +6,10 @@ import java.util.List;
 
 public interface IHistoryService {
 
-    void save(History pHistory);
-    List<History> getAllHistoriUser(String userName);
-    History getLastHistory(String userName);
+    void saveHistory(String pJson, String pXml);
+    List<History> getAllHistoriUser();
+    History getLastHistory();
     History getByidHistory(int id);
+String getUserName();
+    List<History> getTenHistoryByPage(int pPage);
 }
