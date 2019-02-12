@@ -1,6 +1,6 @@
 package by.parakhonka.springsecurity.dao;
 
-import by.parakhonka.springsecurity.model.User;
+import by.parakhonka.springsecurity.entity.User;
 
 public interface IUserDao {
 

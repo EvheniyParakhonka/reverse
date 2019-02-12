@@ -1,6 +1,6 @@
 package by.parakhonka.springsecurity.service;
 
-import by.parakhonka.springsecurity.model.User;
+import by.parakhonka.springsecurity.entity.User;
 
 public interface IUserService {
 

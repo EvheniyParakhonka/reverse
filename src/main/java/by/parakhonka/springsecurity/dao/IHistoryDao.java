@@ -1,6 +1,6 @@
 package by.parakhonka.springsecurity.dao;
 
-import by.parakhonka.springsecurity.model.History;
+import by.parakhonka.springsecurity.entity.History;
 
 import java.util.List;
 
@@ -13,5 +13,5 @@ public interface IHistoryDao {
 
     History getLastHistory(String userName);
 
-    List getTenHistory(int pPage, String pUserName);
+    List getTenHistory(int pPage, int pCount, String pUserName);
 }

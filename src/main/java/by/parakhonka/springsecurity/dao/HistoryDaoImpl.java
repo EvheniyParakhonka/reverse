@@ -1,8 +1,7 @@
 package by.parakhonka.springsecurity.dao;
 
-import by.parakhonka.springsecurity.model.History;
+import by.parakhonka.springsecurity.entity.History;
 import org.hibernate.Criteria;
-import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
@@ -33,15 +32,15 @@ public class HistoryDaoImpl extends AbstractDao<Integer, History> implements IHi
         return history;
     }
 
-    public List<History> getTenHistory(int pPage, String pUserName) {
+    public List<History> getTenHistory(int pPage, int pCount, String pUserName) {
         Criteria crit = createEntityCriteria();
         crit.addOrder(Order.desc("date"));
 
         if (pPage == 1) {
-            return    crit.setFirstResult(0).setMaxResults(10).list();
+            return crit.setFirstResult(0).setMaxResults(pCount).list();
         } else {
 //           return crit.add(Restrictions.between("date", pPage * 10, pPage * 10 + 9)).list();
-            return    crit.setFirstResult(pPage*10).setMaxResults(10).list();
+            return crit.setFirstResult(pPage * pCount).setMaxResults(pCount).list();
         }
 
     }

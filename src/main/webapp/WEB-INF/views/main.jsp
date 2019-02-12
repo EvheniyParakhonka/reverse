@@ -1,6 +1,6 @@
-<%@ taglib prefix="v-on" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="v-on" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -40,11 +40,16 @@
 </head>
 
 <body style="background-color: #F5F9FF">
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark justify-content-between">
     <img src="https://www.ydop.com/wp-content/uploads/2015/06/json-logo-300x143.png" class="rounded" width="60px"
          height="30px"
          alt="logo">
-    <div class="container-fluid justify-content-end">
+    <div id="spinner" class="text-center" v-if="displ" style="padding-left:65px;">
+        <div class="spinner-border text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <div class=" text-end">
         <sec:authorize access="isAuthenticated()">
             <p6 style="color: whitesmoke;padding-right: 10px">Ваш логин: <sec:authentication
                     property="principal.username"/></p6>
@@ -63,10 +68,10 @@
             <p5>JSON</p5>
         </div>
         <div id="buttonJson" class="col-3 text-right align-self-end">
-            <button class="btn btn-sm btn-secondary " v-on:click="jsonToXml">&gt;&gt;</button>
+            <button class="btn btn-sm btn-secondary " v-on:click="jsonToXml" :disabled="disable">&gt;&gt;</button>
         </div>
         <div id="buttonXml" class="col-3 justify-content-start align-self-end">
-            <button class="btn btn-sm btn-secondary" v-on:click="xmlToJson">&lt;&lt;</button>
+            <button class="btn btn-sm btn-secondary" v-on:v-on:click="xmlToJson" :disabled="disable">&lt;&lt;</button>
         </div>
         <div class="col-3 text-right align-self-end">
             <p5>XML</p5>
@@ -74,11 +79,11 @@
     </div>
     <div class="row">
         <div id="areaJson" class="col-6" style=" padding-top: 10px">
-        <textarea class="col-12 rounded " v-model="message" placeholder="вставте JSON"
+        <textarea class="col-12 rounded " :disabled="disable" v-model="message" placeholder="вставте JSON"
                   style="height: 90%; "></textarea>
         </div>
         <div id="areaXml" class="col-6" style=" padding-top: 10px">
-        <textarea class="col-12 rounded" v-model="message" placeholder="вставте xml"
+        <textarea class="col-12 rounded" :disabled="disable" v-model="message" placeholder="вставте xml"
                   style="height: 90%; "></textarea>
         </div>
     </div>
@@ -162,10 +167,10 @@
         </div>
     </div>
     <div class="container-fluid navbar-fixed-bottom" id="page">
-        <div aria-label="Page navigation example" >
-            <ul class="pagination justify-content-center"  >
+        <div aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
 
-                <li v-for="item in items" v-on:click="getPageFunction(item.page)"  class="page-item">
+                <li v-for="item in items" v-on:click="getPageFunction(item.page)" class="page-item">
                     <a class="page-link">{{item.page}}</a>
                 </li>
             </ul>

@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import by.parakhonka.springsecurity.dao.IUserDao;
-import by.parakhonka.springsecurity.model.User;
+import by.parakhonka.springsecurity.entity.User;
 
 @Service("userService")
 @Transactional

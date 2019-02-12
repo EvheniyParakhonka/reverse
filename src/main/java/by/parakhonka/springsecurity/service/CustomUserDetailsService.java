@@ -1,7 +1,7 @@
 package by.parakhonka.springsecurity.service;
 
-import by.parakhonka.springsecurity.model.User;
-import by.parakhonka.springsecurity.model.Role;
+import by.parakhonka.springsecurity.entity.User;
+import by.parakhonka.springsecurity.entity.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

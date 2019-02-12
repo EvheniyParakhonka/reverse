@@ -1,6 +1,6 @@
 package by.parakhonka.springsecurity.dao;
 
-import by.parakhonka.springsecurity.model.User;
+import by.parakhonka.springsecurity.entity.User;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;

@@ -1,7 +1,7 @@
 package by.parakhonka.springsecurity.service;
 
 import by.parakhonka.springsecurity.dao.IHistoryDao;
-import by.parakhonka.springsecurity.model.History;
+import by.parakhonka.springsecurity.entity.History;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -47,8 +47,8 @@ public class HistoryServiceImpl implements IHistoryService {
         return history;
     }
 
-    public List<History> getTenHistoryByPage(int pPage) {
-        List<History> list = mIHistoryDao.getTenHistory(pPage, getUserName());
+    public List<History> getTenHistoryByPage(int pPage, int pCount) {
+        List<History> list = mIHistoryDao.getTenHistory(pPage,pCount, getUserName());
         return list;
     }
 

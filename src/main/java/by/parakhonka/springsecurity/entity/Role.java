@@ -1,4 +1,4 @@
-package by.parakhonka.springsecurity.model;
+package by.parakhonka.springsecurity.entity;
 
 public enum Role {
 	USER("USER");
