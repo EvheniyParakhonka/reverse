@@ -8,13 +8,11 @@ public interface IHistoryService {
 
     void saveHistory(String pJson, String pXml);
 
-    List<History> getAllHistoriUser();
-
     History getLastHistory();
 
     History getByidHistory(int id);
 
-    String getUserName();
+    int getNumberOfPageHistory(int pCount);
 
-    List<History> getTenHistoryByPage(int pPage, int pCount);
+    List getTenHistoryByPage(int pPage, int pCount);
 }

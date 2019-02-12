@@ -1,11 +1,8 @@
 package by.parakhonka.springsecurity.controller;
 
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
+import by.parakhonka.springsecurity.service.IAuthService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -15,6 +12,12 @@ import javax.servlet.http.HttpServletResponse;
 @Controller
 public class HelloWorldController {
 
+    private final IAuthService mIAuthService;
+
+    @Autowired
+    public HelloWorldController(IAuthService mIAuthService) {
+        this.mIAuthService = mIAuthService;
+    }
 
     @RequestMapping(value = {"/", "/home"}, method = RequestMethod.GET)
     public String homePage() {
@@ -28,10 +31,7 @@ public class HelloWorldController {
 
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth != null) {
-            new SecurityContextLogoutHandler().logout(request, response, auth);
-        }
+        mIAuthService.logout(request, response);
         return "redirect:/login?logout";
     }
 }

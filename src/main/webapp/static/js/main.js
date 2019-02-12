@@ -36,6 +36,11 @@ var buttonJson = new Vue({
                 spinner.displ = false;
             }, response => {
                 alert(response.body)
+                buttonJson.disable = false;
+                buttonXml.disable = false;
+                xmlArea.disable = false;
+                jsonArea.disable = false;
+                spinner.displ = false;
             });
         }
     }
@@ -69,7 +74,11 @@ var buttonXml = new Vue({
                 xmlArea.disable = false;
                 jsonArea.disable = false;
             }, response => {
-                alert(response.body)
+                alert(response.body);
+                buttonJson.disable = false;
+                buttonXml.disable = false;
+                xmlArea.disable = false;
+                jsonArea.disable = false;
             });
         },
 
@@ -141,7 +150,7 @@ var histroy = new Vue({
                     accept: 'application/json'
                 }
             }).then(response => {
-                histroy.items.splice(0, 1);
+                histroy.items.pop();
                 histroy.items.unshift({
 
                     id: response.body['id'],

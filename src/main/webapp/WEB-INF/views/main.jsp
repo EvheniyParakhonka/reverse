@@ -102,14 +102,14 @@
             <div class="col-1">more</div>
 
         </nav>
-        <div :key="item.id" v-for="item in items" class="list-group-item ">
+        <div :key="item.id" v-for="(item, index) in items" class="list-group-item ">
 
             <div class="row" style="padding-bottom: 0px">
                 <div class="col-2">{{item.user}}</div>
                 <div class="col-2">{{item.date}}</div>
                 <div class="col-3 clip">{{item.jsonFull}}</div>
                 <div class="col-1">
-                    <a class="btn btn-link" style="padding: 0px; margin: 0px" data-toggle="modal"
+                    <a class="btn btn-link"  style="padding: 0px; margin: 0px" data-toggle="modal"
                        data-target="#myModal">
                         ...
                     </a>

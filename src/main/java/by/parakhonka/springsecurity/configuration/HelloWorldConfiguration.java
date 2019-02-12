@@ -1,6 +1,6 @@
 package by.parakhonka.springsecurity.configuration;
 
-import by.parakhonka.springsecurity.service.CustomUserDetailsService;
+//import by.parakhonka.springsecurity.service.impl.CustomUserDetailsService;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -50,10 +50,10 @@ public class HelloWorldConfiguration extends WebMvcConfigurerAdapter {
 		converters.add(converter);
 		super.configureMessageConverters(converters);
 	}
-	@Bean
-	public UserDetailsService getUserDetailsService(){
-		return new CustomUserDetailsService();
-	}
+//	@Bean
+//	public UserDetailsService getUserDetailsService(){
+//		return new CustomUserDetailsService();
+//	}
 	/*
      * Configure ResourceHandlers to serve static resources like CSS/ Javascript etc...
      *
