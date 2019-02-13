@@ -6,6 +6,9 @@ import java.util.Set;
 @Entity
 @Table(name = "usr")
 public class User {
+    public User() {
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
