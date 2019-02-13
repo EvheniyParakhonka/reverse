@@ -39,7 +39,6 @@ public class HistoryDaoImpl extends AbstractDao<Integer, History> implements IHi
         if (pPage == 1) {
             return crit.setFirstResult(0).setMaxResults(pCount).list();
         } else {
-//           return crit.add(Restrictions.between("date", pPage * 10, pPage * 10 + 9)).list();
             return crit.setFirstResult(pPage * pCount).setMaxResults(pCount).list();
         }
 

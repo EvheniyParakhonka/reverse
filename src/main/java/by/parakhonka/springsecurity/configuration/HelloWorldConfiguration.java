@@ -1,17 +1,16 @@
 package by.parakhonka.springsecurity.configuration;
 
-import by.parakhonka.springsecurity.service.CustomUserDetailsService;
+//import by.parakhonka.springsecurity.service.impl.CustomUserDetailsService;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
@@ -50,10 +49,9 @@ public class HelloWorldConfiguration extends WebMvcConfigurerAdapter {
 		converters.add(converter);
 		super.configureMessageConverters(converters);
 	}
-	@Bean
-	public UserDetailsService getUserDetailsService(){
-		return new CustomUserDetailsService();
-	}
+//	public UserDetailsService getUserDetailsService(){
+//		return new CustomUserDetailsService();
+//	}
 	/*
      * Configure ResourceHandlers to serve static resources like CSS/ Javascript etc...
      *
