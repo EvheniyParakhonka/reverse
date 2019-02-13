@@ -4,7 +4,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <%--<link href="<c:url value='/static/css/bootstrap.css' />" rel="stylesheet"/>--%>
     <link href="<c:url value='/static/css/app.css' />" rel="stylesheet"/>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -109,7 +108,7 @@
                 <div class="col-2">{{item.date}}</div>
                 <div class="col-3 clip">{{item.jsonFull}}</div>
                 <div class="col-1">
-                    <a class="btn btn-link"  style="padding: 0px; margin: 0px" data-toggle="modal"
+                    <a class="btn btn-link" style="padding: 0px; margin: 0px" data-toggle="modal"
                        data-target="#myModal">
                         ...
                     </a>

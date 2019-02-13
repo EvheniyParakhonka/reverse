@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 @Service("authService")
 public class AuthService implements IAuthService {
 
-    public void logout(HttpServletRequest request, HttpServletResponse response){
+    public void logout(HttpServletRequest request, HttpServletResponse response) {
 
         if (getAuth() != null) {
             new SecurityContextLogoutHandler().logout(request, response, getAuth());
@@ -26,7 +26,7 @@ public class AuthService implements IAuthService {
         return user.getUsername();
     }
 
-    private Authentication getAuth(){
+    private Authentication getAuth() {
         return SecurityContextHolder.getContext().getAuthentication();
     }
 }
