@@ -18,7 +18,7 @@ var buttonJson = new Vue({
             xmlArea.disable = true;
             jsonArea.disable = true;
             spinner.displ = true;
-            this.$http.post('./json', jsonArea.message, {
+            this.$http.post('./parse/to-xml', jsonArea.message, {
                 headers: {
                     accept: 'text/plain',
                     'Content-Type': 'text/plain'
@@ -58,7 +58,7 @@ var buttonXml = new Vue({
             xmlArea.disable = true;
             jsonArea.disable = true;
 
-            this.$http.post('./xml', xmlArea.message, {
+            this.$http.post('./parse/to-json', xmlArea.message, {
                 headers: {
                     accept: 'text/plain',
                     'Content-Type': 'text/plain'
@@ -99,7 +99,7 @@ var page = new Vue({
         },
         getNumberOfPage: function () {
             this.items = [];
-            this.$http.get('./history/pages',{params: {count: 10}}).then(response => {
+            this.$http.get('./history/pages', {params: {count: 10}}).then(response => {
 
                 for (var i = 0; i < response.body; i++) {
 
@@ -136,7 +136,7 @@ var histroy = new Vue({
             })
         },
         getTenHistory: function (page) {
-            this.$http.get('./history/ten', {params: {page: page, count: 10}}).then(response => {
+            this.$http.get('./history/stories', {params: {page: page, count: 10}}).then(response => {
                 histroy.items = [];
                 for (var i = 0; i < response.body.length; i++) {
                     var id = response.body[i];

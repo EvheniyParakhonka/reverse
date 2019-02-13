@@ -9,7 +9,7 @@
 
     <style>
         html, body {
-            height:100%;
+            height: 100%;
         }
 
         .center {
@@ -25,10 +25,12 @@
 
 <body>
 <div class="center rounded">
-    <p3 style="color: black" >Login page</p3>
+    <p3 style="color: black">Login page</p3>
     <form action="./j_spring_security_check" method="post">
-        <div style="color: black" ><label> User Name : <input style="color: black" type="text" name="j_username"/> </label></div>
-        <div style="color: black" ><label> Password: <input style="color: black" type="password" name="j_password"/> </label></div>
+        <div style="color: black"><label> User Name : <input style="color: black" type="text" name="j_username"/>
+        </label></div>
+        <div style="color: black"><label> Password: <input style="color: black" type="password" name="j_password"/>
+        </label></div>
         <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
         <div><input class="btn " type="submit" value="Sign In"/></div>
     </form>

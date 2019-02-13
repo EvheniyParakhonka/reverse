@@ -27,11 +27,13 @@
 </head>
 <body>
 <div class="center">
-  <p style="color: whitesmoke">Add new user</p>
+    <p style="color: whitesmoke">Add new user</p>
 
     <form :form action="./registration" method="post">
-        <div style="color: whitesmoke"><label> User Name : <input style="color: black" type="text" name="username" id="userName"/> </label></div>
-        <div style="color: whitesmoke"><label> Password: <input style="color: black" type="password" name="password" id="userPassword"/> </label></div>
+        <div style="color: whitesmoke"><label> User Name : <input style="color: black" type="text" name="username"
+                                                                  id="userName"/> </label></div>
+        <div style="color: whitesmoke"><label> Password: <input style="color: black" type="password" name="password"
+                                                                id="userPassword"/> </label></div>
         <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
         <div><input type="submit" value="sign up"/></div>
     </form>
