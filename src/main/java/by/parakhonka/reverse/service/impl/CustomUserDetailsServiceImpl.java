@@ -15,14 +15,21 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Service("customUserDetailsService")
-public class CustomUserDetailsService implements UserDetailsService {
+public class CustomUserDetailsServiceImpl implements UserDetailsService {
     private final IUserDao mUserDao;
 
     @Autowired
-    public CustomUserDetailsService(IUserDao mIUserDao) {
+    public CustomUserDetailsServiceImpl(IUserDao mIUserDao) {
         this.mUserDao = mIUserDao;
     }
 
+    /**
+     * loaded user and say spring security
+     *
+     * @param pS user name
+     * @return user details
+     * @throws UsernameNotFoundException if can't find user
+     */
     public UserDetails loadUserByUsername(String pS) throws UsernameNotFoundException {
         System.out.println("load By user name");
         User user = mUserDao.findByUserName(pS);

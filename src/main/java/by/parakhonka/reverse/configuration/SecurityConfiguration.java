@@ -1,6 +1,6 @@
 package by.parakhonka.reverse.configuration;
 
-import by.parakhonka.reverse.service.impl.CustomUserDetailsService;
+import by.parakhonka.reverse.service.impl.CustomUserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,18 +15,29 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-    private final CustomUserDetailsService mCustomUserDetailsService;
+    private final CustomUserDetailsServiceImpl mCustomUserDetailsService;
 
     @Autowired
-    public SecurityConfiguration(CustomUserDetailsService pCustomUserDetailsService) {
+    public SecurityConfiguration(CustomUserDetailsServiceImpl pCustomUserDetailsService) {
         this.mCustomUserDetailsService = pCustomUserDetailsService;
     }
 
+    /**
+     * Password codding use BCrypt
+     *
+     * @return BCrypt object
+     */
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
+    /**
+     * configure security, login page, permeation not register user can see
+     *
+     * @param http
+     * @throws Exception
+     */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf()
@@ -44,12 +55,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .permitAll();
     }
 
+    /**
+     * @param auth authentication manager
+     * @throws Exception
+     */
     @Autowired
     public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(mCustomUserDetailsService);
         auth.authenticationProvider(authenticationProvider());
     }
 
+    /**
+     * @return auth provider with config
+     */
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();

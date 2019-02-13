@@ -18,11 +18,20 @@ public class RegistrationController {
         mIRegistrationService = pIRegistrationService;
     }
 
+    /**
+     * @return registration.jsp
+     */
     @RequestMapping(method = RequestMethod.GET)
     public String getRegistrationPage() {
         return "registration";
     }
 
+    /**
+     * check user exist, if not save user in db
+     *
+     * @param user object user to save
+     * @return if exist return registration else redirect to login page
+     */
     @RequestMapping(method = RequestMethod.POST)
     public String registrationUser(User user) {
         User userFromDb = mIRegistrationService.checkUserExist(user.getUsername());

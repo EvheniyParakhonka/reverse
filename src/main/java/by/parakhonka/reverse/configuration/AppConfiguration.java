@@ -23,7 +23,11 @@ import java.util.List;
 @EnableWebMvc
 @ComponentScan(basePackages = "by.parakhonka.reverse")
 public class AppConfiguration extends WebMvcConfigurerAdapter {
-
+    /**
+     * Method registry view
+     *
+     * @param registry
+     */
     @Override
     public void configureViewResolvers(ViewResolverRegistry registry) {
         InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
@@ -33,6 +37,11 @@ public class AppConfiguration extends WebMvcConfigurerAdapter {
         registry.viewResolver(viewResolver);
     }
 
+    /**
+     * Methods use to add convector
+     *
+     * @param converters
+     */
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
         final MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();

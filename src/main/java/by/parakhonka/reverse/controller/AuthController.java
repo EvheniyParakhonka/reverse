@@ -19,11 +19,23 @@ public class AuthController {
         this.mIAuthService = mIAuthService;
     }
 
+    /**
+     * handle request to get login page
+     *
+     * @return login page
+     */
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String loginPage() {
         return "login";
     }
 
+    /**
+     * uses to logout from server
+     *
+     * @param request
+     * @param response
+     * @return redirect to login page
+     */
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
         mIAuthService.logout(request, response);

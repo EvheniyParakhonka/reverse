@@ -9,6 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+/**
+ * @see IHistoryDao
+ */
 @Repository("historyDao")
 @Transactional
 public class HistoryDaoImpl extends AbstractDao<Integer, History> implements IHistoryDao {
@@ -27,7 +30,7 @@ public class HistoryDaoImpl extends AbstractDao<Integer, History> implements IHi
         return (History) crit.add(Restrictions.eq("id", pId)).uniqueResult();
     }
 
-    public List<History> getTenHistory(int pPage, int pCount, String pUserName) {
+    public List<History> getHistoryForOnePage(int pPage, int pCount, String pUserName) {
         Criteria crit = createEntityCriteria();
         crit.addOrder(Order.desc("date"));
 

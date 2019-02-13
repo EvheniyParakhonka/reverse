@@ -19,12 +19,24 @@ public class ParseController {
         mIReformatService = pIReformatService;
     }
 
+    /**
+     * request handle to reformat json to xml
+     *
+     * @param pJson string json from frontend
+     * @return xml string
+     */
     @RequestMapping(value = "/to-xml", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
     @ResponseBody
     public String jsonToXml(@RequestBody String pJson) {
         return mIReformatService.jsonToXmlRef(pJson);
     }
 
+    /**
+     * request handle to reformat xml to json
+     *
+     * @param pXmlString xml string
+     * @return json string
+     */
     @RequestMapping(value = "/to-json", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
     @ResponseBody
     public String xmlToJson(@RequestBody String pXmlString) {

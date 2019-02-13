@@ -11,16 +11,19 @@ import org.springframework.stereotype.Service;
 import java.util.Collections;
 
 @Service
-public class RegistrationService implements IRegistrationService {
+public class RegistrationServiceImpl implements IRegistrationService {
     private final IUserDao mUserDao;
     private final PasswordEncoder mPasswordEncoder;
 
     @Autowired
-    public RegistrationService(IUserDao pUserDao, PasswordEncoder pPasswordEncoder) {
+    public RegistrationServiceImpl(IUserDao pUserDao, PasswordEncoder pPasswordEncoder) {
         mUserDao = pUserDao;
         mPasswordEncoder = pPasswordEncoder;
     }
 
+    /**
+     * @see IRegistrationService
+     */
     public User checkUserExist(String pName) {
         return mUserDao.findByUserName(pName);
     }

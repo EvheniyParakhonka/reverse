@@ -28,6 +28,11 @@ public class HibernateConfiguration {
         this.mEnvironment = environment;
     }
 
+    /**
+     * Method get session
+     *
+     * @return Local Session Factory
+     */
     @Bean
     public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
@@ -47,6 +52,11 @@ public class HibernateConfiguration {
         return dataSource;
     }
 
+    /**
+     * Create hibernate properties
+     *
+     * @return properties
+     */
     private Properties hibernateProperties() {
         Properties properties = new Properties();
         properties.put("hibernate.dialect", mEnvironment.getRequiredProperty("hibernate.dialect"));
@@ -56,6 +66,12 @@ public class HibernateConfiguration {
         return properties;
     }
 
+    /**
+     * create transaction manager
+     *
+     * @param s session factory
+     * @return hibernate transaction manager
+     */
     @Bean
     @Autowired
     public HibernateTransactionManager transactionManager(SessionFactory s) {

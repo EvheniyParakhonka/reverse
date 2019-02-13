@@ -11,8 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @Service("authService")
-public class AuthService implements IAuthService {
-
+public class AuthServiceImpl implements IAuthService {
+    /**
+     * @see IAuthService
+     */
     public void logout(HttpServletRequest pRequest, HttpServletResponse pResponse) {
 
         if (getAuth() != null) {

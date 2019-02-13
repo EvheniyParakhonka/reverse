@@ -6,7 +6,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class MainController {
-
+    /**
+     * handle request main
+     *
+     * @return main.jsp
+     */
     @RequestMapping(value = {"/", "/home"}, method = RequestMethod.GET)
     public String homePage() {
         return "main";

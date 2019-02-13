@@ -22,26 +22,47 @@ public class HistoryController {
         this.mHistoryService = pHistoryService;
     }
 
+    /**
+     * get one history where id is id
+     *
+     * @param id get id from request
+     * @return return one history
+     */
     @RequestMapping(value = "/id", method = RequestMethod.GET)
     @ResponseBody
     public History getByIdHistory(@RequestParam(value = "id") int id) {
         return mHistoryService.getByIdHistory(id);
     }
 
-    //    return Stories on one page
+    /**
+     * @param pPage  number page
+     * @param pCount how many history on 1 page
+     * @return result list history on one page
+     */
     @RequestMapping(value = "/stories", method = RequestMethod.GET)
     @ResponseBody
     public List<History> getStories(@RequestParam(value = "page") int pPage,
                                     @RequestParam(value = "count") int pCount) {
-        return mHistoryService.getTenHistoryByPage(pPage, pCount);
+        return mHistoryService.getHistoryOnOnePage(pPage, pCount);
     }
 
+    /**
+     * Method return number how many page, by record count in bd
+     *
+     * @param pCount how many on 1 page
+     * @return how many page
+     */
     @RequestMapping(value = "/pages", method = RequestMethod.GET)
     @ResponseBody
     public int getPages(@RequestParam(value = "count") int pCount) {
         return mHistoryService.getNumberOfPageHistory(pCount);
     }
 
+    /**
+     * get and return lasted added record in db
+     *
+     * @return last added record of history
+     */
     @RequestMapping(value = "/last", method = RequestMethod.GET)
     @ResponseBody
     public History getLastHistory() {

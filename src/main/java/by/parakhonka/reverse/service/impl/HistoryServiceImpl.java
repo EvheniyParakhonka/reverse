@@ -15,7 +15,6 @@ import java.util.TimeZone;
 @Service
 @Transactional
 public class HistoryServiceImpl implements IHistoryService {
-
     private final IHistoryDao mHistoryDao;
     private final IAuthService mAuthService;
 
@@ -25,6 +24,9 @@ public class HistoryServiceImpl implements IHistoryService {
         this.mAuthService = pAuthService;
     }
 
+    /**
+     * @see IHistoryService
+     */
     public void saveHistory(String pXml, String pJson) {
         History history = new History();
         history.setJson(pJson);
@@ -50,7 +52,7 @@ public class HistoryServiceImpl implements IHistoryService {
         return page;
     }
 
-    public List<History> getTenHistoryByPage(int pPage, int pCount) {
-        return mHistoryDao.getTenHistory(pPage, pCount, mAuthService.getUserName());
+    public List<History> getHistoryOnOnePage(int pPage, int pCount) {
+        return mHistoryDao.getHistoryForOnePage(pPage, pCount, mAuthService.getUserName());
     }
 }

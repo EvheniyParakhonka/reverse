@@ -4,20 +4,22 @@ import by.EvheniyParakhonka.JSONObject;
 import by.EvheniyParakhonka.XML;
 import by.parakhonka.reverse.service.IHistoryService;
 import by.parakhonka.reverse.service.IReformatService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service()
-public class ReformatService implements IReformatService {
+public class ReformatServiceImpl implements IReformatService {
 
     private final IHistoryService mHistoryService;
 
     @Autowired
-    public ReformatService(IHistoryService pHistoryService) {
+    public ReformatServiceImpl(IHistoryService pHistoryService) {
         this.mHistoryService = pHistoryService;
     }
 
+    /**
+     * @see IReformatService
+     */
     public String jsonToXmlRef(String pJson) {
         JSONObject jsonO = new JSONObject(pJson);
         String xml = XML.toString(jsonO);

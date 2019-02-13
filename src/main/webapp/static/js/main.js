@@ -99,7 +99,7 @@ var page = new Vue({
         },
         getNumberOfPage: function () {
             this.items = [];
-            this.$http.get('./history/pages',{params: {count: 10}}).then(response => {
+            this.$http.get('./history/pages', {params: {count: 10}}).then(response => {
 
                 for (var i = 0; i < response.body; i++) {
 
