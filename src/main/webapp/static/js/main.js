@@ -35,7 +35,7 @@ var buttonJson = new Vue({
                 jsonArea.disable = false;
                 spinner.displ = false;
             }, response => {
-                alert(response.body)
+                alert(response.bodyText);
                 buttonJson.disable = false;
                 buttonXml.disable = false;
                 xmlArea.disable = false;
@@ -74,7 +74,7 @@ var buttonXml = new Vue({
                 xmlArea.disable = false;
                 jsonArea.disable = false;
             }, response => {
-                alert(response.body);
+                alert(response.bodyText);
                 buttonJson.disable = false;
                 buttonXml.disable = false;
                 xmlArea.disable = false;
@@ -84,7 +84,6 @@ var buttonXml = new Vue({
 
     }
 });
-
 
 var page = new Vue({
     el: '#page',
@@ -134,6 +133,15 @@ var histroy = new Vue({
                 jsonFull: id['json'],
                 xmlFull: id['xml']
             })
+        },
+        getFullJsonFromHistory: function(index){
+            $("#myModal .modal-body").html(histroy.items[index].jsonFull);
+            $("#myModal").modal().show();
+        },
+        getFullXmlFromHistory: function(index){
+            $("#myModal2 .modal-body").text(histroy.items[index].xmlFull);
+            // html(histroy.items[index].xmlFull);
+            $("#myModal2").modal().show();
         },
         getTenHistory: function (page) {
             this.$http.get('./history/stories', {params: {page: page, count: 10}}).then(response => {

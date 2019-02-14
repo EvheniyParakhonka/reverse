@@ -20,6 +20,8 @@
         <javax.servlet>1.2</javax.servlet>
         <javax.servlet.api>3.1.0</javax.servlet.api>
         <jackson>2.9.4</jackson>
+        <org.slf4j.version>1.7.25</org.slf4j.version>
+        <log4j.version>1.2.16</log4j.version>
     </properties>
 
     <dependencies>
@@ -125,7 +127,35 @@
             <artifactId>jackson-databind</artifactId>
             <version>${jackson}</version>
         </dependency>
-
+        <!-- Logging -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${org.slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jcl-over-slf4j</artifactId>
+            <version>${org.slf4j.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>${org.slf4j.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>${log4j.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.velocity</groupId>
+            <artifactId>velocity</artifactId>
+            <version>1.7</version>
+        </dependency>
 
     </dependencies>
 
@@ -144,6 +174,16 @@
                 </plugin>
             </plugins>
         </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>7</source>
+                    <target>7</target>
+                </configuration>
+            </plugin>
+        </plugins>
         <finalName>Reverse</finalName>
     </build>
 </project>

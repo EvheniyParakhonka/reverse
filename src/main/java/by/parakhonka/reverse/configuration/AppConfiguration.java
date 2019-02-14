@@ -56,9 +56,8 @@ public class AppConfiguration extends WebMvcConfigurerAdapter {
         super.configureMessageConverters(converters);
     }
 
-    /*
+    /**
      * Configure ResourceHandlers to serve static resources like CSS/ Javascript etc...
-     *
      */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {

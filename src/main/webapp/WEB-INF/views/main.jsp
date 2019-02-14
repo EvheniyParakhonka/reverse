@@ -53,7 +53,7 @@
             <p6 style="color: whitesmoke;padding-right: 10px">Ваш логин: <sec:authentication
                     property="principal.username"/></p6>
             <button type="button" class="btn btn-outline-primary btn-sm "
-                    href="<c:url value="/logout" />" role="button">Выйти
+                    :href="<c:url value="/logout" />">Выйти
             </button>
 
         </sec:authorize>
@@ -70,7 +70,7 @@
             <button class="btn btn-sm btn-secondary " v-on:click="jsonToXml" :disabled="disable">&gt;&gt;</button>
         </div>
         <div id="buttonXml" class="col-3 justify-content-start align-self-end">
-            <button class="btn btn-sm btn-secondary" v-on:v-on:click="xmlToJson" :disabled="disable">&lt;&lt;</button>
+            <button class="btn btn-sm btn-secondary" v-on:click="xmlToJson" :disabled="disable">&lt;&lt;</button>
         </div>
         <div class="col-3 text-right align-self-end">
             <p5>XML</p5>
@@ -108,59 +108,18 @@
                 <div class="col-2">{{item.date}}</div>
                 <div class="col-3 clip">{{item.jsonFull}}</div>
                 <div class="col-1">
-                    <a class="btn btn-link" style="padding: 0px; margin: 0px" data-toggle="modal"
-                       data-target="#myModal">
+
+                    <a class="btn btn-link" v-on:click="getFullJsonFromHistory(index)"
+                       style="padding: 0px; margin: 0px">
                         ...
                     </a>
 
-                    <!-- Modal -->
-                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
-                         aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLongTitle">JSON</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    {{item.jsonFull}}
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 <div class="col-3 clip">{{item.xmlFull}}</div>
                 <div class="col-1">
-                    <a class="btn btn-link" style="padding: 0px; margin: 0px" data-toggle="modal"
-                       data-target="#myModal2">
+                    <a class="btn btn-link" v-on:click="getFullXmlFromHistory(index)" style="padding: 0px; margin: 0px">
                         ...
                     </a>
-
-                    <!-- Modal -->
-                    <div class="modal fade" id="myModal2" tabindex="-1" role="dialog"
-                         aria-labelledby="exampleModalLongTitle2" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLongTitle2">XML</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    {{item.xmlFull}}
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -177,21 +136,47 @@
     </div>
 </div>
 
-
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">JSON</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalLongTitle2" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle2">XML</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 <script src="<c:url value="/static/js/main.js"/>"></script>
 <script>
-    $(document).ready(function () {
-        $("#myModal").modal();
-    });
-    $(document).ready(function () {
-        $("#myModal2").modal();
-    });
-    $('#myModal').on('shown.bs.modal', function () {
-        $('#myInput').trigger('focus')
-    });
-    $('#myModal2').on('shown.bs.modal', function () {
-        $('#myInput2').trigger('focus')
-    });
+
 </script>
 </body>
 </html>
