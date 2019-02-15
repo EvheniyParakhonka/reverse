@@ -140,7 +140,6 @@ var histroy = new Vue({
         },
         getFullXmlFromHistory: function(index){
             $("#myModal2 .modal-body").text(histroy.items[index].xmlFull);
-            // html(histroy.items[index].xmlFull);
             $("#myModal2").modal().show();
         },
         getTenHistory: function (page) {

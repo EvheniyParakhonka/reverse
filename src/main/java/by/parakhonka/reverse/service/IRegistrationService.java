@@ -4,7 +4,7 @@ import by.parakhonka.reverse.entity.User;
 
 public interface IRegistrationService {
     /**
-     * check in db of user exist or not for not duplicate
+     * check in db of user exist or not, for not duplicate
      *
      * @param pName name user
      * @return user if exesist

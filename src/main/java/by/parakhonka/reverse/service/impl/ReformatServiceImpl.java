@@ -7,7 +7,7 @@ import by.parakhonka.reverse.service.IReformatService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Service()
+@Service
 public class ReformatServiceImpl implements IReformatService {
 
     private final IHistoryService mHistoryService;

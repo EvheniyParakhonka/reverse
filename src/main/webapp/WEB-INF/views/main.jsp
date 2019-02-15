@@ -52,8 +52,8 @@
         <sec:authorize access="isAuthenticated()">
             <p6 style="color: whitesmoke;padding-right: 10px">Ваш логин: <sec:authentication
                     property="principal.username"/></p6>
-            <button type="button" class="btn btn-outline-primary btn-sm "
-                    :href="<c:url value="/logout" />">Выйти
+            <button type="button" class="btn btn-outline-primary btn-sm ">
+                <a href="<c:url value="/logout" />">Выйти</a>
             </button>
 
         </sec:authorize>
@@ -174,6 +174,8 @@
         </div>
     </div>
 </div>
+
+
 <script src="<c:url value="/static/js/main.js"/>"></script>
 <script>
 
