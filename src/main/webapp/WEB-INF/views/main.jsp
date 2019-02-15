@@ -86,6 +86,12 @@
                   style="height: 90%; "></textarea>
         </div>
     </div>
+    <div class="row justify-content-end">
+        <div class="form-check" style="padding-right: 15px">
+            <input type="checkbox" class="form-check-input" id="checkbox" v-model="checked" >
+            <label class="form-check-label" for="checkbox">Save history</label>
+        </div>
+    </div>
 </div>
 
 <div class="container-fluid list">

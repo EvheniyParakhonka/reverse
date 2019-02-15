@@ -18,17 +18,18 @@ var buttonJson = new Vue({
             xmlArea.disable = true;
             jsonArea.disable = true;
             spinner.displ = true;
-            this.$http.post('./parse/to-xml', jsonArea.message, {
-                headers: {
-                    accept: 'text/plain',
-                    'Content-Type': 'text/plain'
-                }
+            this.$http.post('./parse/to-xml', {
+                reformatValue: jsonArea.message,
+                checkedToSave: checkbox.checked
             }).then(response => {
+                console.log(checkbox.checked);
                 xmlArea.message = response.bodyText;
-                if (page.page === 1) {
-                    histroy.getLastAddedHistory();
+                if (checkbox.checked) {
+                    page.getNumberOfPage();
+                    if (page.page === 1) {
+                        histroy.getLastAddedHistory();
+                    }
                 }
-                page.getNumberOfPage();
                 buttonJson.disable = false;
                 buttonXml.disable = false;
                 xmlArea.disable = false;
@@ -45,7 +46,12 @@ var buttonJson = new Vue({
         }
     }
 });
-
+var checkbox = new Vue({
+    el: '#checkbox',
+    data: {
+        checked: false
+    }
+});
 var buttonXml = new Vue({
     el: '#buttonXml',
     data: {
@@ -58,17 +64,17 @@ var buttonXml = new Vue({
             xmlArea.disable = true;
             jsonArea.disable = true;
 
-            this.$http.post('./parse/to-json', xmlArea.message, {
-                headers: {
-                    accept: 'text/plain',
-                    'Content-Type': 'text/plain'
-                }
+            this.$http.post('./parse/to-json', {
+                reformatValue: xmlArea.message,
+                checkedToSave: checkbox.checked
             }).then(response => {
                 jsonArea.message = response.bodyText;
-                if (page.page === 1) {
-                    histroy.getLastAddedHistory();
+                if (checkbox.checked) {
+                    if (page.page === 1) {
+                        histroy.getLastAddedHistory();
+                    }
+                    page.getNumberOfPage();
                 }
-                page.getNumberOfPage();
                 buttonJson.disable = false;
                 buttonXml.disable = false;
                 xmlArea.disable = false;
@@ -134,11 +140,11 @@ var histroy = new Vue({
                 xmlFull: id['xml']
             })
         },
-        getFullJsonFromHistory: function(index){
+        getFullJsonFromHistory: function (index) {
             $("#myModal .modal-body").html(histroy.items[index].jsonFull);
             $("#myModal").modal().show();
         },
-        getFullXmlFromHistory: function(index){
+        getFullXmlFromHistory: function (index) {
             $("#myModal2 .modal-body").text(histroy.items[index].xmlFull);
             $("#myModal2").modal().show();
         },

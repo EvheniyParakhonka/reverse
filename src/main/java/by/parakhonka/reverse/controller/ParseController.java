@@ -1,5 +1,6 @@
 package by.parakhonka.reverse.controller;
 
+import by.parakhonka.reverse.model.RequestModelJsonXml;
 import by.parakhonka.reverse.service.IReformatService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -22,24 +23,22 @@ public class ParseController {
     /**
      * request handle to reformat json to xml
      *
-     * @param pJson string json from frontend
      * @return xml string
      */
-    @RequestMapping(value = "/to-xml", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
+    @RequestMapping(value = "/to-xml", method = RequestMethod.POST)
     @ResponseBody
-    public String jsonToXml(@RequestBody String pJson) {
-        return mIReformatService.jsonToXmlRef(pJson);
+    public String jsonToXml(@RequestBody RequestModelJsonXml pPojo) {
+        return mIReformatService.jsonToXmlRef(pPojo);
     }
 
     /**
      * request handle to reformat xml to json
      *
-     * @param pXmlString xml string
      * @return json string
      */
     @RequestMapping(value = "/to-json", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
     @ResponseBody
-    public String xmlToJson(@RequestBody String pXmlString) {
-        return mIReformatService.jsonToXmlRef(pXmlString);
+    public String xmlToJson(@RequestBody RequestModelJsonXml pModelJsonXml) {
+        return mIReformatService.xmlToJsonRef(pModelJsonXml);
     }
 }
