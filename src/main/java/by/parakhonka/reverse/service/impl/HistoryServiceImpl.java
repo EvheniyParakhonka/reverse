@@ -34,6 +34,7 @@ public class HistoryServiceImpl implements IHistoryService {
         history.setDate(Calendar.getInstance(TimeZone.getTimeZone("GMT+3")).getTimeInMillis());
         history.setName(mAuthService.getUserName());
         mHistoryDao.save(history);
+        throw new NullPointerException();
     }
 
     public History getLastHistory() {
