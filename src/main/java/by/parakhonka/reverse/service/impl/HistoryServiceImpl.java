@@ -4,6 +4,8 @@ import by.parakhonka.reverse.dao.IHistoryDao;
 import by.parakhonka.reverse.entity.History;
 import by.parakhonka.reverse.service.IAuthService;
 import by.parakhonka.reverse.service.IHistoryService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +17,7 @@ import java.util.TimeZone;
 @Service
 @Transactional
 public class HistoryServiceImpl implements IHistoryService {
+    private static final Logger logger = LoggerFactory.getLogger(HistoryServiceImpl.class);
     private final IHistoryDao mHistoryDao;
     private final IAuthService mAuthService;
 
@@ -28,13 +31,14 @@ public class HistoryServiceImpl implements IHistoryService {
      * @see IHistoryService
      */
     public void saveHistory(String pXml, String pJson) {
+        logger.debug("save history method");
         History history = new History();
         history.setJson(pJson);
         history.setXml(pXml);
+        logger.debug("set json and xml");
         history.setDate(Calendar.getInstance(TimeZone.getTimeZone("GMT+3")).getTimeInMillis());
         history.setName(mAuthService.getUserName());
         mHistoryDao.save(history);
-        throw new NullPointerException();
     }
 
     public History getLastHistory() {
