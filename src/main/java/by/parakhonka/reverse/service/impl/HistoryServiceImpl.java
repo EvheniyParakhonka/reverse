@@ -34,7 +34,6 @@ public class HistoryServiceImpl implements IHistoryService {
         history.setDate(Calendar.getInstance(TimeZone.getTimeZone("GMT+3")).getTimeInMillis());
         history.setName(mAuthService.getUserName());
         mHistoryDao.save(history);
-        throw new NullPointerException();
     }
 
     public History getLastHistory() {
@@ -46,7 +45,8 @@ public class HistoryServiceImpl implements IHistoryService {
     }
 
     public int getNumberOfPageHistory(int pCount) {
-        int page = mHistoryDao.getAllHistoryUser(mAuthService.getUserName()).size() / pCount;
+        List<History> list = mHistoryDao.getAllHistoryUser(mAuthService.getUserName());
+        int page = list.size() / pCount;
         if (page < 1) {
             page = 1;
         }
