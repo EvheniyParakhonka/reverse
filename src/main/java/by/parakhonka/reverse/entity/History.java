@@ -15,6 +15,15 @@ public class History {
     private String xml;
     private Long date;
     private String name;
+    private boolean file;
+
+    public boolean isFile() {
+        return file;
+    }
+
+    public void setFile(boolean pFile) {
+        file = pFile;
+    }
 
     public String getName() {
         return name;
