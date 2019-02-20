@@ -7,7 +7,7 @@ import java.security.NoSuchAlgorithmException;
 
 public interface IFileService {
 
-    void uploadFile(MultipartFile pFile) throws NoSuchAlgorithmException;
+    void uploadFile(MultipartFile pFile, boolean saveFile) throws NoSuchAlgorithmException;
 
     File getFile(int pId, String pFileName) throws NoSuchAlgorithmException;
 }

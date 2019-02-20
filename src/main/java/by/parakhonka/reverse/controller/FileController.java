@@ -32,8 +32,10 @@ public class FileController {
 
     @RequestMapping(value = "/upload-file", method = RequestMethod.POST)
     @ResponseBody
-    public void uploadFile(@RequestParam("file") MultipartFile pFile) throws NoSuchAlgorithmException {
-        mFileService.uploadFile(pFile);
+    public void uploadFile(@RequestParam("file") MultipartFile pFile, @RequestParam("save") boolean check)
+            throws NoSuchAlgorithmException {
+        System.out.println(check);
+        mFileService.uploadFile(pFile, check);
     }
 
     @RequestMapping(value = "/download-file", method = RequestMethod.GET)

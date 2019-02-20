@@ -12,7 +12,6 @@ import by.parakhonka.reverse.util.StringCount;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -37,8 +36,14 @@ public class FileServiceImpl implements IFileService {
         mAuthService = pAuthService;
     }
 
+    /**
+     * get upload file and defines what type of files to treat
+     *
+     * @param pFile upload multipart file
+     * @throws NoSuchAlgorithmException we use MD5 for coding file name
+     */
     @Override
-    public void uploadFile(MultipartFile pFile) throws NoSuchAlgorithmException {
+    public void uploadFile(MultipartFile pFile, boolean pSaveFile) throws NoSuchAlgorithmException {
         logger.debug("upload File");
         String fileExtentionsJson = ".json";
         String fileExtentionsXml = ".xml";
@@ -49,24 +54,31 @@ public class FileServiceImpl implements IFileService {
         String substring = fileName.substring(lastIndex, fileName.length());
 
         if (fileExtentionsJson.contains(substring)) {
-            jsonFile(pFile);
+            jsonFile(pFile, pSaveFile);
         } else if (fileExtentionsXml.contains(substring)) {
-            xmlFile(pFile);
+            xmlFile(pFile, pSaveFile);
         }
     }
 
-    private void xmlFile(MultipartFile pFile) throws NoSuchAlgorithmException {
+    /**
+     * reformat xml file to string value, then write file
+     *
+     * @param pFile multipart xml file
+     * @throws NoSuchAlgorithmException MD5
+     */
+    private void xmlFile(MultipartFile pFile, boolean pSaveFile) throws NoSuchAlgorithmException {
         logger.debug("xml file methods");
         String xmlString = fileToString(pFile);
         JSONObject xmlJSONObj = XML.toJSONObject(xmlString);
         String jsonString = xmlJSONObj.toString(4);
         String[] tokens = Objects.requireNonNull(pFile.getOriginalFilename()).split("\\.(?=[^\\.]+$)");
-
-        if (StringCount.countLines(jsonString) > 50) {
-            //        save to db full name file
-            saveToDB(pFile.getOriginalFilename(), tokens[0] + ".json", true);
-        }else {
-            saveToDB(jsonString, xmlString, false);
+        if (pSaveFile) {
+            if (StringCount.countLines(jsonString) > 50) {
+                //        save to db full name file
+                saveToDB(pFile.getOriginalFilename(), tokens[0] + ".json", true);
+            } else {
+                saveToDB(jsonString, xmlString, false);
+            }
         }
         String idFile = String.valueOf(mHistoryDao.getLastHistory(mAuthService.getUserName()).getId());
         String jsonDir = System.getProperty("user.dir") + "\\"
@@ -77,9 +89,17 @@ public class FileServiceImpl implements IFileService {
                 + MD5.getMD5(idFile)
                 + ".xml";
         fileWriter(xmlDir, xmlString);
+
     }
 
-    private void jsonFile(MultipartFile pFile) throws NoSuchAlgorithmException {
+    /**
+     * reformat json file to string, then write file to storage. Save file name or file value to db
+     * by criterion of lines in the file
+     *
+     * @param pFile json file
+     * @throws NoSuchAlgorithmException MD5
+     */
+    private void jsonFile(MultipartFile pFile, boolean pSaveFile) throws NoSuchAlgorithmException {
         logger.debug("json file methods");
 //        Multipart file to string
         String jsonString = fileToString(pFile);
@@ -89,12 +109,13 @@ public class FileServiceImpl implements IFileService {
         String xmlString = XML.toString(jsonArray);
 //        split original name to two part 1(name), 2(.json or .xml)
         String[] tokens = Objects.requireNonNull(pFile.getOriginalFilename()).split("\\.(?=[^\\.]+$)");
-
-        if (StringCount.countLines(jsonString) > 50) {
-            //        save to db full name file
-            saveToDB(pFile.getOriginalFilename(), tokens[0] + ".xml", true);
-        }else {
-            saveToDB(jsonString, xmlString, false);
+        if (pSaveFile) {
+            if (StringCount.countLines(jsonString) > 50) {
+                //        save to db full name file
+                saveToDB(pFile.getOriginalFilename(), tokens[0] + ".xml", true);
+            } else {
+                saveToDB(jsonString, xmlString, false);
+            }
         }
         String idFile = String.valueOf(mHistoryDao.getLastHistory(mAuthService.getUserName()).getId());
 //        path to xml file where id encode in md5
@@ -109,6 +130,14 @@ public class FileServiceImpl implements IFileService {
         fileWriter(jsonDir, jsonString);
     }
 
+    /**
+     * get file with encoding name
+     *
+     * @param id    id to encoding file name
+     * @param pFile real name file
+     * @return return file
+     * @throws NoSuchAlgorithmException MD5
+     */
     public File getFile(int id, String pFile) throws NoSuchAlgorithmException {
         String[] tokens = Objects.requireNonNull(pFile.split("\\.(?=[^\\.]+$)"));
         String expansion;
@@ -120,10 +149,14 @@ public class FileServiceImpl implements IFileService {
         return new File(MD5.getMD5(String.valueOf(id)) + expansion);
     }
 
+    /**
+     * write file to storage
+     *
+     * @param pDir  directory storage
+     * @param value value storage
+     */
     private void fileWriter(String pDir, String value) {
-
         logger.debug("directory xml file: " + pDir);
-
         try {
             FileWriter fileWriter = new FileWriter(pDir);
             fileWriter.write(value);
@@ -133,8 +166,13 @@ public class FileServiceImpl implements IFileService {
         }
     }
 
+    /**
+     * reformat file to string value
+     *
+     * @param pFile multipart file
+     * @return string value
+     */
     private String fileToString(MultipartFile pFile) {
-
         try {
             return new String(pFile.getBytes());
         } catch (IOException pE) {
@@ -143,6 +181,13 @@ public class FileServiceImpl implements IFileService {
         }
     }
 
+    /**
+     * save to db
+     *
+     * @param pJsonName json name or value
+     * @param pXmlName  xml name or value
+     * @param isFile    it is file
+     */
     private void saveToDB(String pJsonName, String pXmlName, boolean isFile) {
         logger.debug("save history method");
         History history = new History();

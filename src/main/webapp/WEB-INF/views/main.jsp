@@ -62,12 +62,16 @@
 </nav>
 
 <div class="container-fluid " style="height: 60%">
-    <div id="uploadFile" class="row">
+    <div id="uploadFile" class="row" style="padding-left: 15px">
         <form name="fileUpload">
-            <label>Select File</label> <br />
-            <input type="file" name="file" v-on:change="handleFileChange" accept=".json, .xml" />
-            <%--<a v-on:click="submited">Upload</a>--%>
+            <div class="custom-file">
+                <label class="custom-file-label" for="customFile">Select File</label> <br/>
+                <input id="customFile" class="custom-file-input" type="file" name="file" v-on:change="handleFileChange"
+                       accept=".json, .xml"/>
+            </div>
         </form>
+        <button class="btn btn-outline-primary btn-sm" v-on:click="uploadFile" style="padding: 10px"> upload
+        </button>
     </div>
     <div class="row" style="height: 10%;">
         <div class="col-3 justify-content-start align-self-end">
@@ -95,7 +99,7 @@
     </div>
     <div class="row justify-content-end">
         <div class="custom-control custom-checkbox" style="padding-right: 15px">
-            <input type="checkbox" class="custom-control-input" id="checkbox" v-model="checked" >
+            <input type="checkbox" class="custom-control-input" id="checkbox" v-model="checked">
             <label class="custom-control-label" for="checkbox">Save history</label>
         </div>
     </div>

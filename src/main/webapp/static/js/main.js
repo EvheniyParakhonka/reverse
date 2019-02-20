@@ -10,16 +10,21 @@ var spinner = new Vue({
 var uploadFile = new Vue({
     el: '#uploadFile',
     data: {
-        file: ''
+        files: '',
+        formData: new FormData
     },
     methods: {
         handleFileChange(event) {
             //you can access the file in using event.target.files[0]
-            var files = event.target.files[0];
+            this.files = event.target.files[0];
 
-            var formData = new FormData();
-            formData.append('file', files);
-            this.$http.post('./upload-file', formData, {
+            // var formData = new FormData();
+            this.formData.append('file', this.files);
+            this.formData.append('save', checkbox.checked);
+
+        },
+        uploadFile: function () {
+            this.$http.post('./upload-file', this.formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
@@ -40,7 +45,7 @@ var uploadFile = new Vue({
                             jsonFull: response.body['json'],
                             xmlFull: response.body['xml']
                         });
-                        donwload.downloads(histroy.items[0].id, files.name)
+                        donwload.downloads(histroy.items[0].id, this.files.name)
                     }
                 )
             )
@@ -226,7 +231,7 @@ var histroy = new Vue({
         getFullJsonFromHistory: function (index) {
             if (this.items[index].isFile) {
                 $("#myModal .modal-body").html("<div id='downloadJson'>File to large. Download him:" +
-                    " <button class='btn-link'>load</button></div> ");
+                    " <button class='btn btn-outline-primary btn-sm '>load</button></div> ");
                 $('#downloadJson').on('click', function () {
                     donwload.downloads(histroy.items[index].id, histroy.items[index].jsonFull)
                 })
@@ -239,7 +244,7 @@ var histroy = new Vue({
         getFullXmlFromHistory: function (index) {
             if (this.items[index].isFile) {
                 $("#myModal2 .modal-body").html("<div id='downloadXml'>File to large. Download him:" +
-                    " <button class='btn-link'>load</button></div> ");
+                    " <button class='btn btn-outline-primary btn-sm '>load</button></div> ");
                 $('#downloadXml').on('click', function () {
                     donwload.downloads(histroy.items[index].id, histroy.items[index].jsonFull)
                 })
