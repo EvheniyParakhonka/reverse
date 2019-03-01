@@ -6,6 +6,8 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 /**
  * @see IUserDao
  */
@@ -22,10 +24,12 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements IUserDao 
     }
 
     public User findByUserName(String pUserName) {
-        System.out.println("find by user name" + pUserName);
+        System.out.println("find by user userName" + pUserName);
         Criteria crit = createEntityCriteria();
         crit.add(Restrictions.eq("username", pUserName));
-        return (User) crit.uniqueResult();
+        User user = (User) crit.uniqueResult();
+
+        return user;
     }
 
 }

@@ -9,10 +9,10 @@
 </font><br>
 
 include login page
-<%@ include file="main.jsp" %>
+<%@ include file="vue.jsp" %>
 <%} else {%>
 Hi There, error code is <%=request.getAttribute("message") %><br>
-Please go to <a href="./main.jsp">home page</a>
+Please go to <a href="vue.jsp">home page</a>
 <%} %>
 </body>
 </html>

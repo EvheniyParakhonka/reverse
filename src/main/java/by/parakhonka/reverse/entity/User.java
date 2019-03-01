@@ -21,17 +21,6 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
 
-//    @OneToMany(mappedBy = "mUser",fetch = FetchType.LAZY)
-//    private Set<History> history;
-//
-//    public Set<History> getByHistory() {
-//        return history;
-//    }
-//
-//    public void setHistory(Set<History> pHistory) {
-//        history = pHistory;
-//    }
-
     public int getId() {
         return id;
     }
@@ -44,9 +33,11 @@ public class User {
         return username;
     }
 
+
     public void setUsername(String username) {
         this.username = username;
     }
+
 
     public String getPassword() {
         return password;

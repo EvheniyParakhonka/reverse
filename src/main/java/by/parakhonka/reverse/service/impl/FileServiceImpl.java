@@ -40,7 +40,7 @@ public class FileServiceImpl implements IFileService {
      * get upload file and defines what type of files to treat
      *
      * @param pFile upload multipart file
-     * @throws NoSuchAlgorithmException we use MD5 for coding file name
+     * @throws NoSuchAlgorithmException we use MD5 for coding file userName
      */
     @Override
     public void uploadFile(MultipartFile pFile, boolean pSaveFile) throws NoSuchAlgorithmException {
@@ -48,7 +48,7 @@ public class FileServiceImpl implements IFileService {
         String fileExtentionsJson = ".json";
         String fileExtentionsXml = ".xml";
         String fileName = pFile.getOriginalFilename();
-        logger.debug("original name of file: " + pFile.getOriginalFilename());
+        logger.debug("original userName of file: " + pFile.getOriginalFilename());
         assert fileName != null;
         int lastIndex = fileName.lastIndexOf('.');
         String substring = fileName.substring(lastIndex, fileName.length());
@@ -74,7 +74,7 @@ public class FileServiceImpl implements IFileService {
         String[] tokens = Objects.requireNonNull(pFile.getOriginalFilename()).split("\\.(?=[^\\.]+$)");
         if (pSaveFile) {
             if (StringCount.countLines(jsonString) > 50) {
-                //        save to db full name file
+                //        save to db full userName file
                 saveToDB(pFile.getOriginalFilename(), tokens[0] + ".json", true);
             } else {
                 saveToDB(jsonString, xmlString, false);
@@ -93,7 +93,7 @@ public class FileServiceImpl implements IFileService {
     }
 
     /**
-     * reformat json file to string, then write file to storage. Save file name or file value to db
+     * reformat json file to string, then write file to storage. Save file userName or file value to db
      * by criterion of lines in the file
      *
      * @param pFile json file
@@ -107,11 +107,11 @@ public class FileServiceImpl implements IFileService {
         JSONObject jsonArray = new JSONObject(jsonString);
 //        reformat json object to xml string
         String xmlString = XML.toString(jsonArray);
-//        split original name to two part 1(name), 2(.json or .xml)
+//        split original userName to two part 1(userName), 2(.json or .xml)
         String[] tokens = Objects.requireNonNull(pFile.getOriginalFilename()).split("\\.(?=[^\\.]+$)");
         if (pSaveFile) {
             if (StringCount.countLines(jsonString) > 50) {
-                //        save to db full name file
+                //        save to db full userName file
                 saveToDB(pFile.getOriginalFilename(), tokens[0] + ".xml", true);
             } else {
                 saveToDB(jsonString, xmlString, false);
@@ -122,7 +122,7 @@ public class FileServiceImpl implements IFileService {
         String xmlDir = System.getProperty("user.dir") + "\\"
                 + MD5.getMD5(idFile)
                 + ".xml";
-//        write xml file to dir with encoding name
+//        write xml file to dir with encoding userName
         fileWriter(xmlDir, xmlString);
         String jsonDir = System.getProperty("user.dir") + "\\"
                 + MD5.getMD5(idFile)
@@ -131,10 +131,10 @@ public class FileServiceImpl implements IFileService {
     }
 
     /**
-     * get file with encoding name
+     * get file with encoding userName
      *
-     * @param id    id to encoding file name
-     * @param pFile real name file
+     * @param id    id to encoding file userName
+     * @param pFile real userName file
      * @return return file
      * @throws NoSuchAlgorithmException MD5
      */
@@ -184,8 +184,8 @@ public class FileServiceImpl implements IFileService {
     /**
      * save to db
      *
-     * @param pJsonName json name or value
-     * @param pXmlName  xml name or value
+     * @param pJsonName json userName or value
+     * @param pXmlName  xml userName or value
      * @param isFile    it is file
      */
     private void saveToDB(String pJsonName, String pXmlName, boolean isFile) {

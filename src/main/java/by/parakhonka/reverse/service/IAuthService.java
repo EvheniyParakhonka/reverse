@@ -11,9 +11,9 @@ public interface IAuthService {
     void logout(HttpServletRequest pRequest, HttpServletResponse pResponse);
 
     /**
-     * get user name from auth spring security
+     * get user userName from auth spring security
      *
-     * @return user name
+     * @return user userName
      */
     String getUserName();
 }

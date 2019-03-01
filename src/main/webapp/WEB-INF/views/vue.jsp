@@ -193,7 +193,7 @@
 </div>
 
 
-<script src="<c:url value="/static/js/main.js"/>"></script>
+<script src="<c:url value="/static/js/vue.js"/>"></script>
 <script>
 
 </script>

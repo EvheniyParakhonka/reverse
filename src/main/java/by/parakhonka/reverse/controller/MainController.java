@@ -16,11 +16,11 @@ public class MainController {
     /**
      * handle request main
      *
-     * @return main.jsp
+     * @return vue.jsp
      */
     @RequestMapping(value = {"/", "/home"}, method = RequestMethod.GET)
     public String homePage() {
-        return "main";
+        return "vue";
     }
 
     @RequestMapping(value = "/*")

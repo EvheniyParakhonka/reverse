@@ -2,6 +2,8 @@ package by.parakhonka.reverse.dao;
 
 import by.parakhonka.reverse.entity.User;
 
+import java.util.Optional;
+
 public interface IUserDao {
     /**
      * save user to db
@@ -19,10 +21,10 @@ public interface IUserDao {
     User findById(int pId);
 
     /**
-     * find user by name
+     * find user by userName
      *
-     * @param pUserName user name to find user in db
-     * @return user how have name
+     * @param pUserName user userName to find user in db
+     * @return user how have userName
      */
     User findByUserName(String pUserName);
 
