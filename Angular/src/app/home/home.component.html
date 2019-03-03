@@ -1,0 +1,164 @@
+<div class="container-fluid" style="padding: 0; height: 600px">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark justify-content-between">
+    <img src="https://www.ydop.com/wp-content/uploads/2015/06/json-logo-300x143.png" class="rounded" width="60px"
+         height="30px"
+         alt="logo">
+    <div id="spinner" class="text-center" *ngIf="disable" style="padding-left:65px;">
+      <div class="spinner-border text-primary" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+    <div class=" text-end">
+
+      <button type="button" class="btn btn-outline-primary btn-sm " (click)="logout()">
+        Выйти
+      </button>
+    </div>
+
+  </nav>
+
+  <div class="container-fluid " style="height: 60%">
+    <!--<div id="uploadFile" class="row" style="padding-left: 15px">-->
+    <form name="fileUpload" enctype="multipart/form-data" style="display: flex; margin-top: 5px">
+      <div class="custom-file col-4">
+        <label class="custom-file-label" for="customFile">Select File</label>
+        <input id="customFile" class="custom-file-input" type="file" name="file" (change)="handleFileChange($event)"
+               accept=".json, .xml"/>
+
+      </div>
+      <button class="btn btn-outline-primary btn-sm" (click)="uploadFile()" style="padding: 5px; margin-left: 5px">
+        upload
+      </button>
+    </form>
+    <!--</div>-->
+    <div class="row align-items-end" style="height: 10%;">
+      <div class="col-3 ">
+        JSON
+      </div>
+      <div id="buttonJson" class="col-3 text-right ">
+        <button class="btn btn-sm btn-secondary " (click)="jsonToXml()" [ngClass]="{disabled: disable}">&gt;&gt;
+        </button>
+      </div>
+      <div id="buttonXml" class="col-3 " style="bottom: 0px">
+        <button class="btn btn-sm btn-secondary" (click)="xmlToJson()" [ngClass]="{disabled: disable}">&lt;&lt;</button>
+      </div>
+      <div class="col-3 text-right" style="bottom: 0">
+        XML
+      </div>
+    </div>
+    <div class="row" style="height: 100%">
+      <div id="areaJson" class="col-6" style=" padding-top: 10px">
+        <textarea class="col-12 rounded " [ngClass]="{disabled: disable}" [(ngModel)]="messageJson"
+                  placeholder="вставте JSON"
+                  style="height: 100%; "></textarea>
+      </div>
+      <div id="areaXml" class="col-6" style=" padding-top: 10px">
+        <textarea class="col-12 rounded" [ngClass]="{disabled: disable}" [(ngModel)]="messageXml"
+                  placeholder="вставте xml"
+                  style="height: 100%; "></textarea>
+      </div>
+    </div>
+    <div class="row">
+      <div class="custom-control custom-checkbox" style="margin-left: 15px">
+        <input id="checkbox" type="checkbox" class="custom-control-input" [checked]="saveHistory"
+               (change)="saveHistory = !saveHistory">
+        <label class="custom-control-label" for="checkbox">Save history</label>
+      </div>
+    </div>
+  </div>
+<!--history-->
+  <div class="container-fluid list">
+    <div id="v-for-object" class="editable rounded list-group-item:hover{ z-index: auto; }" style="padding: 0">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top " style="
+        padding: 0; color: whitesmoke">
+
+        <div class="col-1">user</div>
+        <div class="col-2">date</div>
+        <div class="col-4">json</div>
+        <div class="col-md-auto"></div>
+        <div class="col-4">xml</div>
+        <div class="col-md-auto"></div>
+
+      </nav>
+      <!--objects history-->
+      <div *ngFor="let item of items; let index of items" class="list-group-item ">
+
+        <div class="row" style="padding-bottom: 0">
+          <div class="col-1">{{item.user}}</div>
+          <div class="col-md-auto">{{item.date}}</div>
+          <div class="col-4 clip">{{item.jsonFull}}</div>
+          <div class="col-md-auto">
+
+            <a class="btn btn-link" (click)="getFullJsonFromHistory(index)"
+               style="padding: 0; margin: 0">
+              ...
+            </a>
+
+          </div>
+          <div class="col-4 clip">{{item.xmlFull}}</div>
+          <div class="col-md-auto">
+            <a class="btn btn-link" (click)="getFullXmlFromHistory(index)" style="padding: 0; margin: 0">
+              ...
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid navbar-fixed-bottom" id="page">
+      <div aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+          <li class="page-item " [ngClass]="{disabled: disableFirstPage}">
+            <a class="page-link" (click)="getPageFunction(1)"><<</a>
+          </li>
+          <li class="page-item" [ngClass]="{disabled: disableFirstPage}">
+            <a class="page-link" (click)="getPageFunction(currentPage - 1)">Previous</a>
+          </li>
+          <li class="page-item" [hidden]="currentPage < 3" (click)="getPageFunction(currentPage - 2)">
+            <a class="page-link">{{currentPage - 2}}</a>
+          </li>
+          <li class="page-item" [hidden]="currentPage < 2" (click)="getPageFunction(currentPage - 1)">
+            <a class="page-link">{{currentPage - 1}}</a>
+          </li>
+          <li class="page-item active">
+      <span class="page-link">
+        {{currentPage}}
+        <span class="sr-only">(current)</span>
+      </span>
+          </li>
+          <li class="page-item" (click)="getPageFunction(currentPage + 1)" [hidden]="hiddenPlusOne">
+            <a class="page-link">{{currentPage + 1}}</a>
+          </li>
+          <li class="page-item" (click)="getPageFunction(currentPage + 2)" [hidden]="hiddenPlusTwo">
+            <a class="page-link">{{currentPage + 2}}</a>
+          </li>
+          <li class="page-item" [ngClass]="{disabled: disabledLastPage}">
+            <a class="page-link" (click)="getPageFunction(currentPage + 1)">Next</a>
+          </li>
+          <li class="page-item" [ngClass]="{disabled: disabledLastPage}">
+            <a class="page-link" (click)="getPageFunction(pages.length)">>></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+       aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">JSON</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

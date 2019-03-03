@@ -14,24 +14,25 @@ import org.springframework.stereotype.Service;
 import java.util.HashSet;
 import java.util.Set;
 
-@Service("customUserDetailsService")
+@Service
 public class CustomUserDetailsServiceImpl implements UserDetailsService {
     private final IUserDao mUserDao;
 
     @Autowired
-    public CustomUserDetailsServiceImpl(IUserDao mIUserDao) {
-        this.mUserDao = mIUserDao;
+    public CustomUserDetailsServiceImpl(IUserDao mUserDao) {
+        this.mUserDao = mUserDao;
     }
+
 
     /**
      * loaded user and say spring security
      *
-     * @param pS user name
+     * @param pS user userName
      * @return user details
      * @throws UsernameNotFoundException if can't find user
      */
     public UserDetails loadUserByUsername(String pS) throws UsernameNotFoundException {
-        System.out.println("load By user name");
+        System.out.println("load By user userName");
         User user = mUserDao.findByUserName(pS);
 
         Set<GrantedAuthority> roles = new HashSet();

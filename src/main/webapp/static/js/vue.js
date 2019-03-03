@@ -73,7 +73,6 @@ var donwload = new Vue({
                 spinner.displ = false;
                 var blob = new Blob([response.data], {type: 'application/octet-stream'});
                 let link = document.createElement('a');
-                //get name file
                 var filename;
                 var disposition = response.headers.get('Content-Disposition');
                 const filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;

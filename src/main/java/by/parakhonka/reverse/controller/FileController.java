@@ -6,10 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
@@ -20,6 +17,7 @@ import java.io.FileInputStream;
 import java.security.NoSuchAlgorithmException;
 
 @Controller
+@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RequestMapping
 public class FileController {
     private static final Logger logger = LoggerFactory.getLogger(FileController.class);
@@ -32,10 +30,11 @@ public class FileController {
 
     @RequestMapping(value = "/upload-file", method = RequestMethod.POST)
     @ResponseBody
-    public void uploadFile(@RequestParam("file") MultipartFile pFile, @RequestParam("save") boolean check)
+    public String uploadFile(@RequestParam("file") MultipartFile pFile, @RequestParam("save") boolean check)
             throws NoSuchAlgorithmException {
         System.out.println(check);
         mFileService.uploadFile(pFile, check);
+        return "ok";
     }
 
     @RequestMapping(value = "/download-file", method = RequestMethod.GET)

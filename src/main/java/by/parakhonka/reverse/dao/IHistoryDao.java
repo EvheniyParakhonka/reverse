@@ -13,7 +13,7 @@ public interface IHistoryDao {
     void save(History pHistory);
 
     /**
-     * takes all the records by name user
+     * takes all the records by userName user
      *
      * @param pUserName to get only user history
      * @return list history user
@@ -31,7 +31,7 @@ public interface IHistoryDao {
     /**
      * sort by id and get last added history
      *
-     * @param pUserName user name
+     * @param pUserName user userName
      * @return return only one lastet added history
      */
     History getLastHistory(String pUserName);

@@ -1,0 +1,16 @@
+.list-group-item:hover {
+  z-index: auto;
+}
+
+.list {
+  position: absolute;
+  bottom: 20px;
+  padding-left: 15px;
+  padding-right: 15px;
+  height: 90px;
+}
+
+.clip {
+  white-space: nowrap;
+  overflow: hidden;
+}
