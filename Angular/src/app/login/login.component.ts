@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
-import {ReversesService} from '../reverses.service';
-import {AuthService} from '../auth.service';
+import {ReversesService} from '../service/reverses.service';
+import {AuthService} from '../service/auth.service';
 import {TokenStorage} from '../token.storage';
 
 @Component({

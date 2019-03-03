@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {ReversesService} from '../reverses.service';
+import {ReversesService} from '../service/reverses.service';
 import {TokenStorage} from '../token.storage';
-import {FormBuilder, FormGroup} from '@angular/forms';
 
 declare var $: any;
 
@@ -16,13 +15,18 @@ export class HomeComponent implements OnInit {
   messageJson: string;
   messageXml: string;
   files: File;
-  page = 1;
   fileUpload = false;
   saveHistory = true;
   fileNmaeToLoad: string;
   items: { id: number, user: string, date: string, jsonFull: string, xmlFull: string, isFile: boolean }[] = [];
   pages: number[];
   one: number;
+  disableFirstPage = true;
+  disabledLastPage = false;
+  currentPage = 1;
+  hiddenPlusOne = false;
+  hiddenPlusTwo = false;
+
 
   constructor(private service: ReversesService, private token: TokenStorage) {
   }
@@ -40,7 +44,7 @@ export class HomeComponent implements OnInit {
     console.log('form data');
     console.log(formData);
     console.log(this.files.name);
-    this.service.uploadFile(formData).subscribe(response => {
+    this.service.uploadFile(formData).subscribe(() => {
         console.log('file upload response');
         this.getLastAddedHistory();
         this.fileUpload = true;
@@ -59,7 +63,7 @@ export class HomeComponent implements OnInit {
     this.service.reformatJsonToXml(this.messageJson, this.saveHistory).subscribe(response => {
         console.log(response);
         if (this.saveHistory) {
-          if (this.page === 1) {
+          if (this.currentPage === 1) {
             this.getLastAddedHistory();
           }
           this.getPages(10);
@@ -77,7 +81,7 @@ export class HomeComponent implements OnInit {
         console.log(response);
         this.messageJson = String(response);
         if (this.saveHistory) {
-          if (this.page === 1) {
+          if (this.currentPage === 1) {
             this.getLastAddedHistory();
           }
           this.getPages(10);
@@ -156,9 +160,22 @@ export class HomeComponent implements OnInit {
 
   getPageFunction(page: number) {
     console.log(page);
-    this.page = page;
+    this.currentPage = page;
+    this.disableFirstPage = page <= 1;
     this.service.getHistoryToOnePage(10, page).subscribe(response => {
         this.items = [];
+        this.currentPage = page;
+        if (typeof this.pages === 'undefined') {
+          console.log('undefined');
+        } else {
+          console.log('pages normal');
+          this.hiddenPlusTwo = page > this.pages.length - 2;
+          this.hiddenPlusOne = page === this.pages.length;
+          this.disabledLastPage = page === this.pages.length;
+          console.log('lenght pages = ' + this.pages.length + ';');
+          console.log('current page ' + page);
+          console.log('pages normal' + this.hiddenPlusTwo);
+        }
         console.log(response);
         console.log(response[0]);
         for (let i = 0; i < 10; i++) {
@@ -174,6 +191,7 @@ export class HomeComponent implements OnInit {
             isFile: obj.file
           });
         }
+
         console.log(this.items[0]);
       }
     );
@@ -193,8 +211,8 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getPageFunction(this.page);
     this.getPages(10);
+    this.getPageFunction(this.currentPage);
   }
 
   logout() {
