@@ -16,8 +16,12 @@ import java.util.Set;
 
 @Service
 public class CustomUserDetailsServiceImpl implements UserDetailsService {
+    private final IUserDao mUserDao;
+
     @Autowired
-    public IUserDao mUserDao;
+    public CustomUserDetailsServiceImpl(IUserDao mUserDao) {
+        this.mUserDao = mUserDao;
+    }
 
 
     /**
